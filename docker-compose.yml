@@ -1,0 +1,20 @@
+services:
+  api:
+    build:
+      context: .
+      args:
+        TRAIN_SAMPLE: ${TRAIN_SAMPLE:-}
+    image: urlguard:latest
+    ports: ["8000:8000"]
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+    deploy:
+      resources:
+        limits: {cpus: "1.0", memory: 1g}
+
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    volumes: ["./deploy/prometheus.yml:/etc/prometheus/prometheus.yml:ro"]
+    ports: ["9090:9090"]
+    depends_on: [api]

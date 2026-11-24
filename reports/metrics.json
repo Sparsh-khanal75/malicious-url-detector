@@ -1,0 +1,85 @@
+{
+  "model_version": "1.0.0",
+  "data": {
+    "raw_rows": 420464,
+    "conflicting_urls_removed": 2,
+    "duplicates_removed": 13580,
+    "clean_rows": 406880,
+    "malicious": 62082,
+    "benign": 344798,
+    "unique_domains": 115321
+  },
+  "split": "domain-grouped (80/20, val 10% of train)",
+  "rows": {
+    "train": 298232,
+    "val": 38429,
+    "test": 70219
+  },
+  "threshold_policy": "f1",
+  "threshold": 0.46423124190850484,
+  "validation_fpr_at_threshold": 0.005770203146842747,
+  "leakage_check": {
+    "random": {
+      "test_rows_with_domain_seen_in_training": 0.7778091820684231,
+      "pr_auc": 0.9856715660171473,
+      "f1@0.5": 0.9444536975349767
+    },
+    "domain": {
+      "test_rows_with_domain_seen_in_training": 0.0,
+      "pr_auc": 0.969433795560034,
+      "f1@0.5": 0.9079889358932639
+    }
+  },
+  "test_results": {
+    "stage1_text_model@0.5": {
+      "pr_auc": 0.968822292204549,
+      "roc_auc": 0.9891090040232791,
+      "threshold": 0.5,
+      "precision": 0.9521399776996312,
+      "recall": 0.8649006622516556,
+      "f1": 0.9064260635257614,
+      "false_positive_rate": 0.00972396486825596,
+      "recall_at_1pct_fpr": 0.8665368134008571,
+      "confusion": {
+        "tn": 56826,
+        "fp": 558,
+        "fn": 1734,
+        "tp": 11101
+      }
+    },
+    "stacked_model@0.5": {
+      "pr_auc": 0.9774736190806746,
+      "roc_auc": 0.9926185207035583,
+      "threshold": 0.5,
+      "precision": 0.9613259668508287,
+      "recall": 0.9082976236852357,
+      "f1": 0.9340597708516946,
+      "false_positive_rate": 0.008173009898229472,
+      "recall_at_1pct_fpr": 0.9155434359174133,
+      "confusion": {
+        "tn": 56915,
+        "fp": 469,
+        "fn": 1177,
+        "tp": 11658
+      }
+    },
+    "stacked_model@tuned": {
+      "pr_auc": 0.9774736190806746,
+      "roc_auc": 0.9926185207035583,
+      "threshold": 0.46423124190850484,
+      "precision": 0.9572363041700735,
+      "recall": 0.912115309700039,
+      "f1": 0.934131258727309,
+      "false_positive_rate": 0.00911403875644779,
+      "recall_at_1pct_fpr": 0.9155434359174133,
+      "confusion": {
+        "tn": 56861,
+        "fp": 523,
+        "fn": 1128,
+        "tp": 11707
+      }
+    }
+  },
+  "train_seconds": 309.8,
+  "model_size_mb": 4.2
+}
