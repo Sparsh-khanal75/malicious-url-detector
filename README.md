@@ -120,3 +120,7 @@ MODEL_CARD.md              intended use, data, metrics, limitations
 - Overlapping n-grams are correlated, so individual weights in [`reports/top_ngrams.png`](reports/top_ngrams.png) aren't independently meaningful (`com/` and `.com` largely cancel). Per-URL contributions in the API are the reliable explanation.
 
 See [MODEL_CARD.md](MODEL_CARD.md) for details.
+
+## Author
+
+**Sparsh Khanal** · [GitHub](https://github.com/Sparsh-khanal75) · [LinkedIn](https://www.linkedin.com/in/Sparsh-khanal75)
