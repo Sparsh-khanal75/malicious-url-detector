@@ -15,6 +15,16 @@ Stacking cut missed malicious URLs from 1,734 to 1,128 (**−35%**), with fewer 
 
 ![Evaluation](reports/evaluation.png)
 
+## Web UI
+
+`make serve`, then open http://localhost:8000. Paste a URL to get the score against the tuned threshold, the character n-grams that pushed it toward "malicious" and the lexical red flags. These screenshots are from the model trained on the full dataset (`make train`).
+
+![urlguard web UI explaining a malicious verdict](docs/screenshots/web-ui.png)
+
+**Batch mode** scores up to 500 URLs in one request:
+
+![urlguard batch scoring](docs/screenshots/web-ui-batch.png)
+
 ## The interesting part: not fooling yourself
 
 Getting 98% on a URL dataset is easy. Making the number mean something is the real work.
@@ -69,7 +79,7 @@ curl -X POST localhost:8000/predict -H 'content-type: application/json' \
 }
 ```
 
-Each verdict says *why*: the character n-grams that pushed the score up (`.com.` inside a host is the classic brand-as-subdomain trick) and the lexical red flags. Interactive docs are at `/docs`, and Prometheus metrics at `/metrics` (request count by verdict, latency histogram, score distribution).
+Each verdict says *why*: the character n-grams that pushed the score up (`.com.` inside a host is the classic brand-as-subdomain trick) and the lexical red flags. A web UI is served at `/`, interactive docs are at `/docs`, and Prometheus metrics at `/metrics` (request count by verdict, latency histogram, score distribution).
 
 ## Run it
 
