@@ -37,3 +37,10 @@ def test_batch_and_metrics(client):
     assert r["count"] == 2 and [x["verdict"] for x in r["results"]] == ["benign", "malicious"]
     m = client.get("/metrics").text
     assert "urlguard_predictions_total" in m and "urlguard_request_seconds" in m
+
+
+def test_web_ui_served(client):
+    r = client.get("/")
+    assert r.status_code == 200
+    assert "text/html" in r.headers["content-type"]
+    assert "urlguard" in r.text and "/predict" in r.text
