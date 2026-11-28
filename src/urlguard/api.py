@@ -2,6 +2,7 @@
 REST API for the URL classifier.
 
   uvicorn urlguard.api:app --host 0.0.0.0 --port 8000
+  open http://localhost:8000/ for the web UI, /docs for the API reference
   MODEL_PATH=models/urlguard.joblib (default, read at startup)
 """
 
@@ -10,13 +11,16 @@ from __future__ import annotations
 import os
 import time
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 import joblib
 from fastapi import FastAPI, HTTPException, Response
+from fastapi.responses import FileResponse
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, Histogram, generate_latest
 from pydantic import BaseModel, Field
 
 MAX_BATCH = 500
+UI = Path(__file__).parent / "static" / "index.html"
 
 PREDICTIONS = Counter("urlguard_predictions_total", "URLs scored", ["verdict"])
 LATENCY = Histogram(
@@ -76,6 +80,12 @@ def _model():
     if m is None:
         raise HTTPException(503, "model not loaded")
     return m
+
+
+@app.get("/", include_in_schema=False)
+def ui():
+    """Single-page web UI for trying the model."""
+    return FileResponse(UI)
 
 
 @app.get("/health")
